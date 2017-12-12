@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1beta2 
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  namespace: iot
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:3.6.0-jessie
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mongo
+  namespace: iot
+spec:
+  selector:
+    app: mongo
+  ports:
+  - protocol: TCP
+    port: 27017
+    targetPort: 27017

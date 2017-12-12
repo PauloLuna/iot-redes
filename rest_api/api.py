@@ -5,6 +5,7 @@ import time
 
 app = Flask(__name__)
 app.config["MONGO_DBNAME"] = "iot_db"
+app.config["MONGO_HOST"] = "mongo.iot.svc.cluster.local"
 mongo = PyMongo(app, config_prefix='MONGO')
 api = Api(app)
 
@@ -64,4 +65,4 @@ api.add_resource(Device, '/device/<string:device_id>')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0")

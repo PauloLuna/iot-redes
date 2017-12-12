@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1beta2 
+kind: Deployment
+metadata:
+  name: api-deployment
+  namespace: iot
+  labels:
+    app: api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: jpsluna/python-iot:1.3
+        command: ["python", "/rest_api/api.py"]
+        ports:
+        - containerPort: 5000
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api
+  namespace: iot
+spec:
+  selector:
+    app: api
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+
+---
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: api-external
+  namespace: iot
+spec:
+  selector:
+    app: api
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+    nodePort: 30080
+  type: NodePort

@@ -1,0 +1,7 @@
+{
+    "id": "smart_lock_1",
+    "type":"smart_lock",
+    "command_topic": "air_conditioner", 
+    "measurable_var": "door_opened",
+    "objective": 3
+}
