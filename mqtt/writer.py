@@ -19,7 +19,6 @@ mqttc = mqtt.Client()
 
 mqttc.connect("broker.iot.svc.cluster.local", 1883, 60)
 
-mqttc.subscribe("drivers/#", 0)
 mqttc.loop_start()
 
 while True:
